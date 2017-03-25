@@ -9,7 +9,7 @@ Using ES6 back tick template strings we can use multi-line strings to create the
 
 Usage
 
-	import { Component } from '/component-literal';
+	import { Component } from 'component-literal/index';
 
 ********************************************
 
