@@ -1,9 +1,11 @@
 ******************************************** 
 # COMPONENT
 
-**description**: A lightweight method for working with tagged template literals. Appending the Component tag before the template literal string, turns the string into and actual DOM node.
+**Description**
 
-Using ES6 back tick template strings we can use multi-line strings to create the HTML template. Injecting data or dynanamic properties is also possible using ${ - INSERT STRING OR OBJECT - }
+A lightweight view library for creating components with Template Literals. Appending the Component tag before the template literal string, turns the string into and actual DOM element node.
+
+Using ES6 back tick template strings we can use multi-line strings to create the HTML template. Injecting data or dynamic properties are also possible using ${ - INSERT STRING OR OBJECT - }
 
 ********************************************
 
@@ -19,7 +21,7 @@ Method
 
 **Arguments**
 
-The HTML string used to create the component. Must be valid HTML. Using tagged template literal syntax, dynamic values can be used via '${value}'. Values can be either strings, DOM elements or another Component (which is also just a DOM node). A dom node will be coverted to a string and injected as innerHTML.
+The HTML string used to create the component. Must be valid HTML. Using tagged template literal syntax, dynamic values can be used via '${value}'. Values can be either strings, elements or another Component (which is also just an element). An element will be coverted to a string and injected as innerHTML.
 
 
 ********************************************
@@ -29,11 +31,11 @@ Method
 
 **Arguments**
 
-component (DOM Node) :
+component (DOM Element Node) :
 The declared component wished to render.
 
 DOMSelector (String) :
-The target DOM Node to render the component to. Can use string query syntax ('#id', '.class', *all', etc.), or a DOM node stored in a variable (const target = $('#id'). 
+The target element to render the component to. Can use string query syntax ('#id', '.class', *all', etc.), or an element stored in a variable (const target = $('#id'). 
 
 ********************************************
 Method
@@ -42,8 +44,8 @@ Method
 
 **Arguments**
 
-element (DOM Node) :
-returns an HTML string of a DOM node.
+element (DOM Element Node) :
+returns an HTML string of a element.
 
 ********************************************
 
