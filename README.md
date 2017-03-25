@@ -6,6 +6,13 @@
 Using ES6 back tick template strings we can use multi-line strings to create the HTML template. Injecting data or dynanamic properties is also possible using ${ - INSERT STRING OR OBJECT - }
 
 ********************************************
+
+Usage
+
+	import { Component } from '/component-literal';
+
+********************************************
+
 Method
 
 	Component `<div class="component">${value}</div>`;
