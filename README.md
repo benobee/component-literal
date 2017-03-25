@@ -61,5 +61,3 @@ returns an HTML string of a DOM node.
 			Component.render(this.container, '#page');
 		}
 	}
-"# Component" 
-"# Component" 
