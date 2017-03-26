@@ -1,6 +1,6 @@
 {
   "name": "component-literal",
-  "version": "1.0.9",
+  "version": "1.1.0",
   "description": "Component rendering using tagged template literal syntax. Converts string to DOM element node and vice versa.",
   "main": "./src/component.js",
   "scripts": {
@@ -23,5 +23,8 @@
   "bugs": {
     "url": "https://github.com/benobee/Component/issues"
   },
-  "homepage": "https://github.com/benobee/Component#readme"
+  "homepage": "https://github.com/benobee/Component#readme",
+  "dependencies": {
+    "morphdom": "^2.3.2"
+  }
 }
