@@ -22,9 +22,8 @@ const Component = (strings, ...exp) => {
 	const taggedLiteral = new Template(strings, ...exp);
 
 	/* return the DOM element to be appended */
-	return taggedLiteral.node;
+	return taggedLiteral;
 };
-
 
 /*
  * methods to extend to Component object
@@ -38,30 +37,24 @@ const methods = {
 	 * Can use string query syntax ('#id', '.class', *all', etc.), or an element 
 	 * stored in a variable (const target = $('#id').
 	*/
-
-	render(element, target, callback) {
+	render(component, target, callback) {
 		const type = (typeof target);
-	
 		if (type === "string") {
 			target = document.querySelectorAll(target);
-			target[ 0 ].appendChild(element);
-	
+			target[ 0 ].appendChild(component.node);
 		} else if (type === "object") {
 			if (target instanceof HTMLElement) {
 				target = [target];
 			}
-	
 			target.forEach((node) => {
-				node.appendChild(element);
+				component.node.appendChild(element);
 			});	
-	
 		} else {
 			console.error("COMPONENT ERROR: Needs to be a valid DOM element or string selector.");
 		}
-
 		//store the render target in the component
-		component.renderTarget = target;
-
+		Component.renderTarget = target;
+		
 		//optional callback
 		if(callback) {
 			callback();
@@ -69,12 +62,11 @@ const methods = {
 	},
 
 	//element (DOM Element Node) : returns an HTML string of a element.
-	toStaticHTML(element) {
+	toStaticHTML(element){
 		const template = new Template();
-
+	
 		return template.HTMLElementToString(element);
 	}
-
 };
 
 //assign the methods to the main Component object

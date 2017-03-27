@@ -33,7 +33,7 @@ Method
 
 **Arguments**
 
-The HTML string used to create the component. Must be valid HTML. Using tagged template literal syntax, dynamic values can be used via '${value}'. Values can be either strings, elements or another Component (which is also just an element). An element will be coverted to a string and injected as innerHTML.
+The HTML string used to create the component. Must be valid HTML. Using tagged template literal syntax, dynamic values can be used via '${value}'. Values can be either strings, elements or a Component Literal. An element will be coverted to a string and injected as innerHTML.
 
 ********************************************
 Method
@@ -59,12 +59,23 @@ element (DOM Element Node) :
 returns an HTML string of a element.
 
 ********************************************
+Method
+
+	[ComponentVariableName].update( Component `<div class="new-component"></div>`);
 
 **EXAMPLE**
 
-	import { Component } from '../../core';
-	import * as data from '../../../data.json';
+	const dog = Component `<dog>Ted</dog>`;
 
+	dog.update(Component `<dog class="pet">Bob</dog>`);
+
+********************************************
+
+**EXAMPLE**
+
+	import { Component } from 'component-literal/index';
+	import * as data from '../../../data.json';
+  
 	class List {
 		constructor() {
 			this.items = data.items.map((item, i) => {
@@ -86,9 +97,15 @@ returns an HTML string of a element.
 				`)
 			});
 
-			this.container = Component `<div class="collection-list">${this.items}</div>`;
-			
+			this.container = Component `<div class="collection-list">${this.items.slice(0, 4)}</div>`;
+
 			Component.render(this.container, '#page');
+
+			setTimeout(() => {
+				
+				this.container.update(Component `<div class="collection-list">${this.items.slice(5, 9)}</div>`);
+
+			}, 1500);
 		}
 	}
 

@@ -1,6 +1,6 @@
 {
   "name": "component-literal",
-  "version": "1.1.0",
+  "version": "1.1.2",
   "description": "Component rendering using tagged template literal syntax. Converts string to DOM element node and vice versa.",
   "main": "./src/component.js",
   "scripts": {

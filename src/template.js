@@ -59,6 +59,8 @@ class Template {
 			if (this.beforeUpdate()) {
 				//efficiently updates the DOM from node to another
 				resolve( morphdom(this.node, next.node) );				
+			} else {
+				resolve( morphdom(this.node, next.node) );
 			}
 		});
 
