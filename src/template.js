@@ -6,8 +6,7 @@ import morphdom from 'morphdom';
 
 class Template {
 	constructor(strings, ...exp) {
-		this.name = "ravenComponent";
-		this[this.name] = true;
+		this.componentLiteral = true;
 		this.node = {};
 		this.renderTarget = {};
 		this.staticHTML = '';
@@ -90,7 +89,7 @@ class Template {
 				let expression = exp[ i ];
 				const type = (typeof expression);
 
-				if (type === "object" && Array.isArray(expression) && expression[ 0 ][this.name]) {
+				if (type === "object" && Array.isArray(expression) && expression[ 0 ].componentLiteral) {
 					expression = expression.map((object) => {
 						return object.staticHTML;
 					}).join("");

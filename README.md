@@ -3,9 +3,7 @@
 
 **Description**
 
-A lightweight, flexible view layer for creating components with template literals. Turns the template string into and actual DOM element and will efficiently transform the existing DOM node tree when updated.
-
-Using ES6 back tick template strings we can use multi-line strings to create the HTML template. Injecting data or dynamic properties are also possible using ${ - INSERT STRING OR OBJECT - }
+A lightweight, flexible, and dead simple way to create DOM components with template literals.
 
 ********************************************
 
@@ -38,7 +36,7 @@ The HTML string used to create the component. Must be valid HTML. Using tagged t
 ********************************************
 Method
 
-	Component.render(component, DOMSelector);
+	Component.render(component, DOMSelector, callback);
 
 **Arguments**
 

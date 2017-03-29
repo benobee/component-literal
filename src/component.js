@@ -1,6 +1,6 @@
 /*
- * @description: A lightweight view library for creating components with 
- * Template Literals. Appending the Component tag before the template 
+ * @description: A lightweight view layer for creating components with 
+ * template literals. Appending the Component tag before the template 
  * literal string, turns the string into and actual DOM element node.
  * Using ES6 back tick template strings we can use multi-line strings 
  * to create the HTML template. Injecting data or dynamic properties 
