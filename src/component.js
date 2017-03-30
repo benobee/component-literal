@@ -1,6 +1,6 @@
 /*
- * @description: A lightweight view layer for creating components with 
- * template literals. Appending the Component tag before the template 
+ * @description: A lightweight view library for creating components with 
+ * Template Literals. Appending the Component tag before the template 
  * literal string, turns the string into and actual DOM element node.
  * Using ES6 back tick template strings we can use multi-line strings 
  * to create the HTML template. Injecting data or dynamic properties 
@@ -37,35 +37,33 @@ const methods = {
 	 * Can use string query syntax ('#id', '.class', *all', etc.), or an element 
 	 * stored in a variable (const target = $('#id').
 	*/
+
 	render(component, target, callback) {
 		const type = (typeof target);
 		if (type === "string") {
 			target = document.querySelectorAll(target);
-			target[ 0 ].appendChild(component.node);
+
+			target.forEach((node) =>{
+				node.appendChild(component.node);
+			});
+
 		} else if (type === "object") {
 			if (target instanceof HTMLElement) {
 				target = [target];
 			}
 			target.forEach((node) => {
 				component.node.appendChild(element);
-			});	
+			});
 		} else {
 			console.error("COMPONENT ERROR: Needs to be a valid DOM element or string selector.");
 		}
 		//store the render target in the component
-		Component.renderTarget = target;
+		component.renderTarget = target;
 		
 		//optional callback
 		if(callback) {
 			callback();
 		}
-	},
-
-	//element (DOM Element Node) : returns an HTML string of a element.
-	toStaticHTML(element){
-		const template = new Template();
-	
-		return template.HTMLElementToString(element);
 	}
 };
 

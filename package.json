@@ -1,7 +1,7 @@
 {
   "name": "component-literal",
-  "version": "1.1.3",
-  "description": "Component rendering using tagged template literal syntax. Converts string to DOM element node and vice versa.",
+  "version": "1.1.7",
+  "description": "A lightweight, flexible, and dead simple way to create DOM components with template literals.",
   "main": "./src/component.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

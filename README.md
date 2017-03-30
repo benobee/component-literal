@@ -10,18 +10,7 @@ A lightweight, flexible, and dead simple way to create DOM components with templ
 Usage
 
 	import { Component } from 'component-literal/index';
-
-********************************************
-
-**API**
-
-********************************************
-
-Component.node - returns the DOM element
-
-Component.renderTarget - once the component has been rendered, this will be stored as a variable
-
-Component.staticHTML - returns the static HTML of the component
+	
 
 ********************************************
 
@@ -49,16 +38,6 @@ The target element to render the component to. Can use string query syntax ('#id
 ********************************************
 Method
 
-	Component.toStaticHTML(element);
-
-**Arguments**
-
-element (DOM Element Node) :
-returns an HTML string of a element.
-
-********************************************
-Method
-
 	[ComponentVariableName].update( Component `<div class="new-component"></div>`);
 
 **EXAMPLE**
@@ -75,36 +54,30 @@ Method
 	import * as data from '../../../data.json';
   
 	class List {
-		constructor() {
-			this.items = data.items.map((item, i) => {
-				return (
-					Component `
-						<div id="${item.id}" class="collection-item">
-							<div class="content">
-								<div class="media">
-									<div class="image" style="background-image:url(${item.assetUrl});"></div>
-								</div>
-								<div class="title">
-									${item.title}
-								</div>
-								<div class="tags">
-									${item.categories}
-								</div>
-							</div>
-						</div>
-				`)
-			});
+	  constructor() {
+	    this.items = data.items.map((item, i) => {
+	        return (
+	    	    Component `
+	    	      <div id="${item.id}" class="collection-item">
+	    	        <div class="content">
+	                <div class="media">
+	                  <div class="image" style="background-image:url(${item.assetUrl});"></div>
+	                </div>
+	    	          <div class="title">
+	    	            ${item.title}
+	    	          </div>
+	    	          <div class="tags">
+	    	          	${item.categories}
+	    	          </div>
+	    	        </div>
+	    	      </div>
+	    	  `)
+	  	});
 
-			this.container = Component `<div class="collection-list">${this.items.slice(0, 4)}</div>`;
-
-			Component.render(this.container, '#page');
-
-			setTimeout(() => {
-				
-				this.container.update(Component `<div class="collection-list">${this.items.slice(5, 9)}</div>`);
-
-			}, 1500);
-		}
+	  	this.container = Component `<div class="collection-list">${this.items.slice(0, 4)}</div>`;
+	  	
+	  	Component.render(this.container, '#page');
+	  }
 	}
 
 	export default List;
