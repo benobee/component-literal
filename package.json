@@ -1,6 +1,6 @@
 {
   "name": "component-literal",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "description": "A lightweight, reactive, flexible, and dead simple way to create DOM components with template literals.",
   "main": "./src/component.js",
   "scripts": {

@@ -90,30 +90,6 @@ const methods = {
 
 		return this;
 	},
-	publish(selector, callback) {
-
-		/*
-		 * (longhand method)
-		 * subscribe to a DOM elment. If the element appears within the DOM
-		 * component will be rendered to the document to the target element
-		 * callback method applied for convenience
-		*/
-		
-		const target = document.querySelectorAll(selector);
-
-		if (target.length !== 0) {
-			target.forEach((node) => {
-				// const clone = this.node.cloneNode(true);
-				node.appendChild(this.node);
-			});
-		}
-
-		if (callback) {
-			callback();
-		}
-
-		return this;
-	},
 	update(props) {
 
 		/*
