@@ -8,22 +8,53 @@ import util from './util';
 
 class Template {
 	constructor(strings, ...exp) {
+
 		this.componentLiteral = true;
 		this.node = {};
-		this.renderTarget = {};
 		this.staticHTML = '';
-		
-		if (strings && exp) {
+
+		let html = '';
+
+		if (Array.isArray(strings) && exp) {
 			const html = util.templateToString(strings, exp);
+
 			this.node = util.toHTMLElement(html);
-			this.staticHTML = util.formatString(html);
-			this.attrs = util.parseProps(this.node);
+
+			//search for helpers
+			util.parsePropsHelpers(this.node);
+
+			this.node.childNodes.forEach((node) => {
+				util.parsePropsHelpers(node);
+			});
+
+			this.staticHTML = this.node.outerHTML;
 		}
 	}
-	update(next, ...options) {
-		
-		morphdom(this.node, next.node);
+	render(selector, callback) {
+		/*
+		 * (longhand method)
+		 * subscribe to a DOM elment. If the element appears within the DOM
+		 * component will be rendered to the document to the target element
+		 * callback method applied for convenience
+		*/
+	
+		const target = document.querySelectorAll(selector);
 
+		if (target.length !== 0) {
+			target.forEach((node) => {
+				// const clone = this.node.cloneNode(true);
+				node.appendChild(this.node);
+			});
+		}
+
+		if (callback) {
+			callback();
+		}
+
+		return this;		
+	}
+	update(next, ...options) {
+		morphdom(this.node, next.node);
 	}
 }
 

@@ -7,7 +7,9 @@
  * are also possible using ${ - INSERT STRING OR OBJECT - }
 */
 
+import morphdom from 'morphdom';
 import Template from './template';
+import util from './util';
 
 /* 
  * The HTML string used to create the component. Must be valid HTML. 
@@ -17,12 +19,12 @@ import Template from './template';
  * coverted to a string and injected as innerHTML.
 */
 
-const Component = (strings, ...exp) => {
+const Component = (strings, ...expressions) => {
 	/*create new template from string*/
-	const taggedLiteral = new Template(strings, ...exp);
+	const component = new Template(strings, ...expressions);
 
-	/* return the DOM element to be appended */
-	return taggedLiteral;
+	/* return the DOM element to be appended */		
+	return component;
 };
 
 /*
@@ -38,13 +40,21 @@ const methods = {
 	 * stored in a variable (const target = $('#id').
 	*/
 
-	render(component, target, callback) {
+	render(target, callback) {
+		/* 
+		 * (shorthand method)
+         * declaritive method for appending a Component to the DOM
+		*/
+	
+		this.renderTarget = target;
+
 		const type = (typeof target);
+
 		if (type === "string") {
 			target = document.querySelectorAll(target);
 
 			target.forEach((node) =>{
-				node.appendChild(component.node);
+				node.appendChild(this.node);
 			});
 
 		} else if (type === "object") {
@@ -52,18 +62,77 @@ const methods = {
 				target = [target];
 			}
 			target.forEach((node) => {
-				component.node.appendChild(element);
+				this.node.appendChild(element);
 			});
 		} else {
 			console.error("COMPONENT ERROR: Needs to be a valid DOM element or string selector.");
 		}
-		//store the render target in the component
-		component.renderTarget = target;
-		
+
 		//optional callback
 		if(callback) {
 			callback();
 		}
+
+		return this;
+	},
+	build(controller) {
+
+		/*
+		 * (longhand method)
+		 * this method will provide a long hand way for binding data to the tagged
+		 * literal HTML for use in a more reactive rendering. Takes two parameters
+		 * data, and a render function in a single object stated as "component".
+		*/
+
+		Object.assign(this, controller.render());
+
+		this.controller = controller;
+
+		return this;
+	},
+	publish(selector, callback) {
+
+		/*
+		 * (longhand method)
+		 * subscribe to a DOM elment. If the element appears within the DOM
+		 * component will be rendered to the document to the target element
+		 * callback method applied for convenience
+		*/
+		
+		const target = document.querySelectorAll(selector);
+
+		if (target.length !== 0) {
+			target.forEach((node) => {
+				// const clone = this.node.cloneNode(true);
+				node.appendChild(this.node);
+			});
+		}
+
+		if (callback) {
+			callback();
+		}
+
+		return this;
+	},
+	update(props) {
+
+		/*
+		 * (longhand method)
+		 * 
+		*/
+		
+		//get the keys and values of the passed in props
+		const keys = Object.keys(props);
+		const values = Object.values(props);
+
+		//match the props values and update the current ones
+		keys.forEach((key, i) => {
+			this.controller.data[key] = values[ i ];
+		});
+
+		const component = this.controller.render();
+
+		morphdom(this.node, component.node);
 	}
 };
 
@@ -71,3 +140,4 @@ const methods = {
 Object.assign(Component, methods);
 
 export default Component;
+

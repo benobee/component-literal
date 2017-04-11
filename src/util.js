@@ -19,26 +19,22 @@ const util = {
 
 		return node;
 	},
-	parseProps(node) {
- 		const attrs = {};
-
+	parsePropsHelpers(node) {
 		for (const key in node.attributes) {
 		    const item = node.attributes[key];
 
 		    if (item.name && item.nodeValue && item.nodeValue !== '[object Object]'){
-				Object.assign(attrs, {[item.name]: item.nodeValue});
+				switch(item.name) {
+				    case 'data-slug':
+				        item.nodeValue = this.slugify(item.nodeValue);
+				        break;
+				    default:     
+				}
 		    }
 		}
-
-		return attrs;
 	},
-	HTMLElementToString(component) {
-
-		/*
-		 * return the outer html of a node
-		*/
-	
-		return this.formatString(component.node.outerHTML);
+	slugify(str) {
+		return str.toLowerCase().replace(/ /g, "-").replace(/-&-/g, "-").replace(/[^\w-]+/g,'');
 	},
 	templateToString(strings, exp) {
 
@@ -51,13 +47,17 @@ const util = {
 			let expression = exp[ i ];
 
 			if (expression) {
+
 				const type = (typeof expression);
 
 				if (Array.isArray(expression) && expression[ 0 ].componentLiteral) {
 					expression = expression.map((object) => {
 						return object.staticHTML;
 					}).join("");
+				} else if (typeof expression === "object"){
+					expression = Object.values(expression)[0];
 				}
+
 				return item + expression;
 			}
 			return item;
