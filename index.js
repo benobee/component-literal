@@ -1,5 +1,1 @@
-import Component from './src/component';
-
-export {
-	Component
-}
+module.exports = require('./dist/component-literal.min.js');

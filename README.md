@@ -11,7 +11,7 @@ Categorized with shorthand and longhand styles, the components can be ultra simp
 
 Usage
 
-    import { Component } from 'component-literal/index';
+    import Component from 'component-literal';
     
 
 ********************************************
@@ -55,7 +55,7 @@ Replaces entire component.
 
 **EXAMPLE**
 
-    import { Component } from 'component-literal/index';
+    import Component from 'component-literal';
     import * as data from '../../../data.json';
   
     class List {
@@ -124,7 +124,7 @@ Uses querySelectorAll. Will search for the target element and render if it exist
 
 **EXAMPLE**
 
-    import { Component } from 'component/index';
+    import Component from 'component-literal';
     
     class List {
       constructor() {
