@@ -32,8 +32,6 @@ const input = {
     entry: ['./src/component.js'],
     devtool: isProduction ? '' : 'eval',
     node: {
-        dns: 'mock',
-        net: 'mock',
         fs: 'empty'
     }
 };
@@ -131,10 +129,10 @@ const minify = new webpack.optimize.UglifyJsPlugin({
     output: {
         comments: false
     },
-    minimize: isProduction ? true : false,
-    debug: false,
-    sourceMap: true,
-    minify: true
+    minimize: false,
+    debug:true,
+    sourceMap: false,
+    minify: false
 });
 
 //if production is set, js will be minified

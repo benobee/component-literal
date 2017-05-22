@@ -39,7 +39,7 @@ const methods = {
 	 * Can use string query syntax ('#id', '.class', *all', etc.), or an element 
 	 * stored in a variable (const target = $('#id').
 	*/
-
+	controller : {},
 	render(target, callback) {
 		/* 
 		 * (shorthand method)
@@ -73,6 +73,11 @@ const methods = {
 			callback();
 		}
 
+		//bind events if configured
+		if (this.listeners) {
+			this.bind(this.listeners);
+		}
+
 		return this;
 	},
 	build(controller) {
@@ -84,11 +89,37 @@ const methods = {
 		 * data, and a render function in a single object stated as "component".
 		*/
 
-		Object.assign(this, controller.render());
+		Object.assign(this, controller.html());
 
+		this.data = controller.data;
 		this.controller = controller;
 
 		return this;
+	},
+	events(events) {
+		this.listeners = events;
+
+		Object.assign(this.controller, events);
+
+		return this;
+	},
+	bind() {
+		const keys = Object.keys(this.listeners);
+		const values = Object.values(this.listeners);
+
+		keys.forEach((key, i) => {
+			key = key.split(" ");
+
+			const eventType = key[ 0 ];
+
+			const targetNode = key[ 1 ];
+
+			const targetsToBind = document.querySelectorAll(targetNode);
+
+			targetsToBind.forEach((target) => {
+				target.addEventListener(eventType, values[ i ]);
+			});
+		});
 	},
 	update(props) {
 
@@ -96,7 +127,7 @@ const methods = {
 		 * (longhand method)
 		 * 
 		*/
-		
+
 		//get the keys and values of the passed in props
 		const keys = Object.keys(props);
 		const values = Object.values(props);
@@ -109,6 +140,7 @@ const methods = {
 		const component = this.controller.render();
 
 		morphdom(this.node, component.node);
+		this.bind(this.listeners);
 	}
 };
 

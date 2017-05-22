@@ -43,6 +43,8 @@ const util = {
 		*/
 
 		let joined = strings.map((item, i) => {
+			
+			item = this.formatString(item); 
 
 			let expression = exp[ i ];
 
@@ -51,11 +53,15 @@ const util = {
 				const type = (typeof expression);
 
 				if (Array.isArray(expression) && expression[ 0 ].componentLiteral) {
+
 					expression = expression.map((object) => {
 						return object.staticHTML;
 					}).join("");
+
 				} else if (typeof expression === "object"){
 					expression = Object.values(expression)[0];
+				} else if (typeof expression === "string") {
+					expression = this.formatString(expression);
 				}
 
 				return item + expression;
@@ -65,6 +71,7 @@ const util = {
 		}).join("");
 
 		joined = this.formatString(joined);
+
 		return joined;
 	},
 	formatString(str) {
@@ -73,7 +80,11 @@ const util = {
 		 * remove all whitespace, tabs and return lines from string
 		*/ 
 
-		return str.replace(/\r?\n|\r/g, "").replace(/\t/g, "");
+		str = str.replace(/(\r\n|\n|\r)/gm,"").replace(/\t/g, "").replace(/  /g,'');
+
+		const match = str.match(/<[^>]*>/g);
+
+		return str;
 	}
 };
 

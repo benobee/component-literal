@@ -27,10 +27,11 @@ class Template {
 				util.parsePropsHelpers(node);
 			});
 
-			this.staticHTML = this.node.outerHTML;
+			this.staticHTML = util.formatString(this.node.outerHTML);
 		}
 	}
 	render(selector, callback) {
+
 		/*
 		 * (longhand method)
 		 * subscribe to a DOM elment. If the element appears within the DOM
