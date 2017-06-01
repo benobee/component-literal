@@ -18,11 +18,12 @@ const WEBPACK_CONFIG = { module: {} };
 /*
  * test whether the script will be run in
  * production using "npm run build" from
- * the terminal. If true, file names will
- * be hashed, js will be minified.
+ * the terminal.
 */
 
-const isProduction = JSON.parse(process.env.PROD_ENV ? true : false);
+if (process.env.PROD_ENV === 'true') {
+    const isProduction = true;
+}
 
 /***************************************/
 /*********       INPUT        **********/
@@ -129,14 +130,17 @@ const minify = new webpack.optimize.UglifyJsPlugin({
     output: {
         comments: false
     },
-    minimize: false,
-    debug:true,
-    sourceMap: false,
-    minify: false
+    minimize: true,
+    debug: true,
+    sourceMap: true,
+    minify: true,
 });
 
 //if production is set, js will be minified
-isProduction ? plugins.push(minify) : false;
+if (isProduction) {
+    plugins.push(minify);
+}
+
 
 //output to config object
 WEBPACK_CONFIG.plugins = plugins;
@@ -144,7 +148,15 @@ WEBPACK_CONFIG.plugins = plugins;
 /************************************/
 /********       OUTPUT        *******/
 /************************************/
-const output = {
+const developmentOutput = {
+    output: {
+          publicPath: '/',
+          path: __dirname + "/dist",
+          filename: "component-literal.js"
+    }
+};
+
+const productionOutput = {
     output: {
           publicPath: '/',
           path: __dirname + "/dist",
@@ -153,7 +165,11 @@ const output = {
 };
 
 //extend properties to config
-Object.assign(WEBPACK_CONFIG, output);
+if (isProduction) {
+    Object.assign(WEBPACK_CONFIG, productionOutput);
+} else {
+    Object.assign(WEBPACK_CONFIG, developmentOutput);
+}
 
 //export config
 module.exports = WEBPACK_CONFIG;

@@ -41,8 +41,8 @@ const methods = {
 	*/
 	controller : {},
 	render(target, callback) {
+
 		/* 
-		 * (shorthand method)
          * declaritive method for appending a Component to the DOM
 		*/
 	
@@ -83,10 +83,9 @@ const methods = {
 	build(controller) {
 
 		/*
-		 * (longhand method)
-		 * this method will provide a long hand way for binding data to the tagged
-		 * literal HTML for use in a more reactive rendering. Takes two parameters
-		 * data, and a render function in a single object stated as "component".
+		 * this method will provide a way for binding data to the tagged
+		 * literal HTML for use in reactive rendering. Takes three parameters:
+		 * data (object), html (method), events (method).
 		*/
 
 		Object.assign(this, controller.html());
@@ -97,6 +96,11 @@ const methods = {
 		return this;
 	},
 	events(events) {
+
+		/*
+		 * Used with the build method 
+		*/
+	
 		this.listeners = events;
 
 		Object.assign(this.controller, events);
@@ -104,6 +108,11 @@ const methods = {
 		return this;
 	},
 	bind() {
+
+		/*
+		 * Used to bind events after render and after component updates
+		*/
+
 		const keys = Object.keys(this.listeners);
 		const values = Object.values(this.listeners);
 
@@ -122,11 +131,6 @@ const methods = {
 		});
 	},
 	update(props) {
-
-		/*
-		 * (longhand method)
-		 * 
-		*/
 
 		//get the keys and values of the passed in props
 		const keys = Object.keys(props);

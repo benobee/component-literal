@@ -135,7 +135,7 @@ Comprised of a event listener and a target, the syntax is as follows:
   
   Component.events({
     'click .item' (e) {
-      console.log(true);
+      console.log(e);
     }
   });
 
