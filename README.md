@@ -63,6 +63,12 @@ Comprised of a event listener and a target, the syntax is as follows:
     });
 
 ********************************************
+## update(props)
+
+props (object) :
+When updating a component, use the same property key to update the data object nested in the build method.
+
+********************************************
 
 **EXAMPLE**
 
@@ -96,6 +102,7 @@ Comprised of a event listener and a target, the syntax is as follows:
         }
     }).render("#page");
 
+    Component.update({items: ["blue", "mountain cabin", "expert"]});
 
 ********************************************
 morphdom
