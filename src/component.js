@@ -39,7 +39,7 @@ const methods = {
 	 * Can use string query syntax ('#id', '.class', *all', etc.), or an element 
 	 * stored in a variable (const target = $('#id').
 	*/
-	controller : {},
+	controller: {},
 	render(target, callback) {
 
 		/* 
@@ -53,7 +53,7 @@ const methods = {
 		if (type === "string") {
 			target = document.querySelectorAll(target);
 
-			target.forEach((node) =>{
+			target.forEach((node) => {
 				node.appendChild(this.node);
 			});
 
@@ -62,14 +62,14 @@ const methods = {
 				target = [target];
 			}
 			target.forEach((node) => {
-				this.node.appendChild(element);
+				this.node.appendChild(node);
 			});
 		} else {
 			console.error("COMPONENT ERROR: Needs to be a valid DOM element or string selector.");
 		}
 
 		//optional callback
-		if(callback) {
+		if (callback) {
 			callback();
 		}
 
@@ -138,7 +138,7 @@ const methods = {
 
 		//match the props values and update the current ones
 		keys.forEach((key, i) => {
-			this.controller.data[key] = values[ i ];
+			this.controller.data[ key ] = values[ i ];
 		});
 
 		const component = this.controller.render();

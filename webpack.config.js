@@ -4,6 +4,7 @@
 
 const webpack = require("webpack");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const path = require('path');
 
 /****************************************/
 /*******     CONFIG OBJECT      *********/
@@ -50,6 +51,21 @@ Object.assign(WEBPACK_CONFIG, input);
 */
 
 const rules = [];
+
+/*********************/
+
+// @rule: ES Lint
+
+const eslint = {
+    test: /\.js$/,
+    enforce: 'pre',
+    loader: 'eslint-loader',
+    options: {
+      emitWarning: true,
+    }
+};
+
+rules.push(eslint);
 
 /*********************/
 
@@ -148,28 +164,17 @@ WEBPACK_CONFIG.plugins = plugins;
 /************************************/
 /********       OUTPUT        *******/
 /************************************/
-const developmentOutput = {
-    output: {
-          publicPath: '/',
-          path: __dirname + "/dist",
-          filename: "component-literal.js"
-    }
-};
 
-const productionOutput = {
+const output = {
     output: {
           publicPath: '/',
           path: __dirname + "/dist",
-          filename: "component-literal.min.js"
+          filename: isProduction ? "component-literal.min.js" : "component-literal.js"
     }
 };
 
 //extend properties to config
-if (isProduction) {
-    Object.assign(WEBPACK_CONFIG, productionOutput);
-} else {
-    Object.assign(WEBPACK_CONFIG, developmentOutput);
-}
+Object.assign(WEBPACK_CONFIG, output);
 
 //export config
 module.exports = WEBPACK_CONFIG;

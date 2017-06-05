@@ -3,53 +3,24 @@
 
 **Description**
 
-A lightweight, flexible, and dead simple way to create DOM components with template literals.
+A flexible, and dead simple way to create reactive DOM components with template literals.
 
 Components can be ultra simple or slightly more complex depending on the scenario. The slightly more complex style employs a reactive update method, and focuses on updating the data rather than the entire compenent itself. Updating the component's data will automatically trigger a re-render of the HTML, and will efficiently update the DOM using [morphdom](https://github.com/patrick-steele-idem/morphdom). All methods can be method chained together for ease of organization. Render and event methods will always update in the correct order, no matter how the code is organized on the page.
 
 ********************************************
 
-Usage
+## Usage
 
     import Component from 'component-literal';
     
 
 ********************************************
 
-Method
+## Component `<HTML/>`
 
-    Component `<div class="component">${value}</div>`;
+### Arguments
 
-**Arguments**
-
-The HTML string used to create the component. Must be valid HTML. Using tagged template literal syntax, dynamic values can be used via '${value}'. Values can be either strings, elements or a Component Literal. An element will be coverted to a string and injected as innerHTML.
-
-********************************************
-Method
-
-    Component.render(component, DOMSelector, callback);
-
-**Arguments**
-
-component (DOM Element Node) :
-The declared component wished to render.
-
-DOMSelector (String) :
-The target element to render the component to. Can use string query syntax ('#id', '.class', *all', etc.), or an element stored in a variable (const target = $('#id'). 
-
-********************************************
-Method
-
-    [ComponentVariableName].update( Component `<div class="new-component"></div>`);
-
-Replaces entire component.
-
-**EXAMPLE**
-
-    const ui = Component `<div class="icon"><i class="fa fa-arrow-up"></i></div>`;
-    const close = Component `<div class="icon"><i class="fa fa-close"></i></div>`;
-
-    ui.update(close);
+The HTML string used to create the component. Must be valid HTML. Using tagged template literal syntax, dynamic values can be used via '${value}'. Values can be either strings, elements or a Component Literal. An element will be coverted to a string and injected as innerHTML. The HTML will be condensed and turned into an actual DOM element.
 
 ********************************************
 
@@ -89,55 +60,38 @@ Replaces entire component.
 
 ********************************************
 
-Method (build)
+## build(config)
 
-    Component.build(config);
-
-**Arguments**
+### Arguments
 
 config (object) :
-The config object is an object literal comprising of data, and a render method. Also uses the shorthand sytax for creating Component Literal components.
+The config object is an object literal comprising of data, and a render method. Also uses the shorthand sytax for creating Component Literal components. There must be a data object nested in the config as well an "html()" method. Updating the data will automatically re-render the html and bind any event handlers.
 
 ********************************************
 
-Method (update)
+## render(target)
 
-    [ComponentVariableName].update(props);
+### Arguments
 
-**Arguments**
-
-props (object) :
-The props that will change with any update. Must match the property names from the first render.
-
-********************************************
-
-Method (render)
-
-    [ComponentVariableName].render(target);
-
-**Arguments**
-
-target (string) :
+target (string or DOM element) :
 Uses querySelectorAll. Will search for the target element and render if it exists in the DOM. Can be method chained from the Component.build() method.
 
 ********************************************
 
-Method (events)
+## events(methods)
 
-  [ComponentVariableName].events(methods);
-
-**Arguments**
+### Arguments
 
 methods (object) :
 Comprised of a event listener and a target, the syntax is as follows:
 
 **EXAMPLE**
   
-  Component.events({
-    'click .item' (e) {
-      console.log(e);
-    }
-  });
+    Component.events({
+      'click .item' (e) {
+        console.log(e);
+      }
+    });
 
 ********************************************
 

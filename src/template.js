@@ -16,7 +16,7 @@ class Template {
 		let html = '';
 
 		if (Array.isArray(strings) && exp) {
-			const html = util.templateToString(strings, exp);
+			html = util.templateToString(strings, exp);
 
 			this.node = util.toHTMLElement(html);
 

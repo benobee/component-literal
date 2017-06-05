@@ -21,20 +21,22 @@ const util = {
 	},
 	parsePropsHelpers(node) {
 		for (const key in node.attributes) {
-		    const item = node.attributes[key];
+				if (key) {
+				    const item = node.attributes[ key ];
 
-		    if (item.name && item.nodeValue && item.nodeValue !== '[object Object]'){
-				switch(item.name) {
-				    case 'data-slug':
-				        item.nodeValue = this.slugify(item.nodeValue);
-				        break;
-				    default:     
-				}
-		    }
+				    if (item.name && item.nodeValue && item.nodeValue !== '[object Object]') {
+						switch (item.name) {
+						    case 'data-slug':
+						        item.nodeValue = this.slugify(item.nodeValue);
+						        break;
+						    default:     
+						}
+				    }				
+			}
 		}
 	},
 	slugify(str) {
-		return str.toLowerCase().replace(/ /g, "-").replace(/-&-/g, "-").replace(/[^\w-]+/g,'');
+		return str.toLowerCase().replace(/ /g, "-").replace(/-&-/g, "-").replace(/[^\w-]+/g, '');
 	},
 	templateToString(strings, exp) {
 
@@ -58,8 +60,8 @@ const util = {
 						return object.staticHTML;
 					}).join("");
 
-				} else if (typeof expression === "object"){
-					expression = Object.values(expression)[0];
+				} else if (typeof expression === "object") {
+					expression = Object.values(expression)[ 0 ];
 				} else if (typeof expression === "string") {
 					expression = this.formatString(expression);
 				}
@@ -80,7 +82,7 @@ const util = {
 		 * remove all whitespace, tabs and return lines from string
 		*/ 
 
-		str = str.replace(/(\r\n|\n|\r)/gm,"").replace(/\t/g, "").replace(/  /g,'');
+		str = str.replace(/(\r\n|\n|\r)/gm, "").replace(/\t/g, "").replace(/  /g, '');
 
 		const match = str.match(/<[^>]*>/g);
 
