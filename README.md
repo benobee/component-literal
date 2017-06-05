@@ -12,7 +12,6 @@ Components can be ultra simple or slightly more complex depending on the scenari
 ## Usage
 
     import Component from 'component-literal';
-    
 
 ********************************************
 
@@ -26,37 +25,7 @@ The HTML string used to create the component. Must be valid HTML. Using tagged t
 
 **EXAMPLE**
 
-    import Component from 'component-literal';
-    import * as data from '../../../data.json';
-  
-    class List {
-      constructor() {
-        this.items = data.items.map((item, i) => {
-            return (
-                Component `
-                  <div id="${item.id}" class="collection-item">
-                    <div class="content">
-                    <div class="media">
-                      <div class="image" style="background-image:url(${item.assetUrl});"></div>
-                    </div>
-                      <div class="title">
-                        ${item.title}
-                      </div>
-                      <div class="tags">
-                        ${item.categories}
-                      </div>
-                    </div>
-                  </div>
-              `)
-        });
-
-        this.container = Component `<div class="collection-list">${this.items.slice(0, 4)}</div>`;
-        
-        Component.render(this.container, '#page');
-      }
-    }
-
-    export default List;
+    Component `<div class="collection-title">THE TITLE</div>`;
 
 ********************************************
 
