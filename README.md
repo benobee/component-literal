@@ -11,7 +11,7 @@ Components can be ultra simple or slightly more complex depending on the scenari
 
 ## Usage
 
-    import Component from 'component-literal';
+    import { ComponentLiteral, Component } from 'component-literal';
 
 ********************************************
 
@@ -29,7 +29,7 @@ The HTML string used to create the component. Must be valid HTML. Using tagged t
 
 ********************************************
 
-## build(config)
+## Class - ComponentLiteral(config)
 
 ### Arguments
 
@@ -38,7 +38,7 @@ The config object is an object literal comprising of data, and a render method. 
 
 ********************************************
 
-## render(target)
+## Method - render(target)
 
 ### Arguments
 
@@ -47,7 +47,7 @@ Uses querySelectorAll. Will search for the target element and render if it exist
 
 ********************************************
 
-## events(methods)
+## Method - events(methods)
 
 ### Arguments
 
@@ -63,7 +63,7 @@ Comprised of a event listener and a target, the syntax is as follows:
     });
 
 ********************************************
-## update(props)
+## Method - update(props)
 
 props (object) :
 When updating a component, use the same property key to update the data object nested in the build method.
@@ -72,37 +72,41 @@ When updating a component, use the same property key to update the data object n
 
 **EXAMPLE**
 
-    import Component from 'component-literal';
-    
-    Component.build({
-      data:{
-        items: [
-          {name: "red"}, 
-          {name: "beach house"}, 
-          {name: "novice"}
-        ]
-      },
-      html() {
-        return (
-          Component `
-            <div class="collection-list">
-              ${this.data.items.map((item, i) => {
-                return (
-                  Component `<div data-id="item_${i + 1}" class="item">
-                    ${item.name}
-                  </div>`
-                )
-              })}
-            </div>`
-        )
-      }
-    }).events({
-        'click .item' (e) {
-            e.currentTarget.innerHTML = "Clicked";
-        }
-    }).render("#page");
+    import { ComponentLiteral, Component } from 'component-literal';
 
-    Component.update({items: ["blue", "mountain cabin", "expert"]});
+    const list = new ComponentLiteral({
+        data: {
+          items: [
+            { name: "red" }, 
+            { name: "beach house" }, 
+            { name: "novice" }
+          ],
+          classNames: {
+            title: "novice",
+          }
+        },
+        html() {
+          return (
+            Component `<div class="collection-list">
+                ${this.data.items.map((item, i) => {
+                  return (
+                    `<div data-id="item_${ i + 1 }" class="item ${this.data.classNames.title}">
+                      ${ item.name }
+                    </div>`
+                  );
+                })}
+              </div>`
+          );
+        }
+      })
+      .events({
+        "click .expert" (e) {
+          e.currentTarget.innerHTML = "clicked";
+        }
+      }).render("#main-content");
+
+      list.update();
+
 
 ********************************************
 morphdom

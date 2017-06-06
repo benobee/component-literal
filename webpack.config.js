@@ -31,7 +31,7 @@ if (process.env.PROD_ENV === 'true') {
 /***************************************/
 const input = {
     context: __dirname,
-    entry: ['./src/component.js'],
+    entry: ['./src/index.js'],
     devtool: isProduction ? '' : 'eval',
     node: {
         fs: 'empty'

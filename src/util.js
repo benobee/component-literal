@@ -43,34 +43,18 @@ const util = {
 		/*
 		 * parse and join the strings and data
 		*/
+	
+		let joined = "";
 
-		let joined = strings.map((item, i) => {
-			
-			item = this.formatString(item); 
+		if (Array.isArray(exp[ 0 ])) {
+			const inner = exp[ 0 ].map((item, i) => {
+				return item;
+			}).join("");
 
-			let expression = exp[ i ];
-
-			if (expression) {
-
-				const type = (typeof expression);
-
-				if (Array.isArray(expression) && expression[ 0 ].componentLiteral) {
-
-					expression = expression.map((object) => {
-						return object.staticHTML;
-					}).join("");
-
-				} else if (typeof expression === "object") {
-					expression = Object.values(expression)[ 0 ];
-				} else if (typeof expression === "string") {
-					expression = this.formatString(expression);
-				}
-
-				return item + expression;
-			}
-			return item;
-			
-		}).join("");
+			joined = strings.map((item, i) => {
+				return item + inner;
+			}).join("");
+		}
 
 		joined = this.formatString(joined);
 
@@ -82,9 +66,9 @@ const util = {
 		 * remove all whitespace, tabs and return lines from string
 		*/ 
 
-		str = str.replace(/(\r\n|\n|\r)/gm, "").replace(/\t/g, "").replace(/  /g, '');
+		str = str.replace(/[\n\r]+/g, '').replace(/\s{2,10}/g, '');
 
-		const match = str.match(/<[^>]*>/g);
+		//const match = str.match(/<[^>]*>/g);
 
 		return str;
 	}
