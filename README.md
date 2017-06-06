@@ -105,7 +105,16 @@ When updating a component, use the same property key to update the data object n
         }
       }).render("#main-content");
 
-      list.update();
+      list.update({ 
+        items: [
+          { name: "blue" }, 
+          { name: "mountain cabin" }, 
+          { name: "expert" }
+        ], 
+        classNames: { 
+          title: "expert" 
+        }
+      });
 
 
 ********************************************
