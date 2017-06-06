@@ -1,4 +1,4 @@
-import { ComponentLiteral, Component } from "./index";
+import { ComponentLiteral, Component } from "./component";
 
 const site = {
 	init() {
@@ -77,7 +77,7 @@ const site = {
 	    		}
 	    	});
 
-	    	this.list.update({ 
+	    	this.list.update({
 		    	items: [
 		    		{ name: "blue" }, 
 		    		{ name: "mountain cabin" }, 

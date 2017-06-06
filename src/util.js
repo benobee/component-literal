@@ -43,9 +43,22 @@ const util = {
 		/*
 		 * parse and join the strings and data
 		*/
-	
+		
 		let joined = "";
 
+		//if the template literal is a string with no expressions
+		joined = joined = strings.map((item, i) => {
+			return item;
+		}).join("");
+
+		//if the template literal has expressions join them with the strings
+		if (exp.length > 0) {
+			joined = joined = strings.map((item, i) => {
+				return item + exp[ i ];
+			}).join("");			
+		}
+
+		//if the template literal has expressions, but contains an array
 		if (Array.isArray(exp[ 0 ])) {
 			const inner = exp[ 0 ].map((item, i) => {
 				return item;
@@ -56,6 +69,7 @@ const util = {
 			}).join("");
 		}
 
+		//remove white spaces, tabs, returns
 		joined = this.formatString(joined);
 
 		return joined;
