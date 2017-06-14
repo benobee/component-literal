@@ -31,7 +31,7 @@ if (process.env.PROD_ENV === 'true') {
 /***************************************/
 const input = {
     context: __dirname,
-    entry: ['./src/index.js'],
+    entry: ['./dist/component.js'],
     devtool: isProduction ? '' : 'eval',
     node: {
         fs: 'empty'
@@ -60,6 +60,7 @@ const eslint = {
     test: /\.js$/,
     enforce: 'pre',
     loader: 'eslint-loader',
+    exclude: /dist/,
     options: {
       emitWarning: true,
     }
@@ -72,7 +73,7 @@ rules.push(eslint);
 // @rule: Babel
 const babel = {
     test: /\.js$/, 
-    exclude: /node_modules/,
+    exclude: [/node_modules/, /dist/],
     use: [
         {
             loader: 'babel-loader',
@@ -156,7 +157,6 @@ const minify = new webpack.optimize.UglifyJsPlugin({
 if (isProduction) {
     plugins.push(minify);
 }
-
 
 //output to config object
 WEBPACK_CONFIG.plugins = plugins;

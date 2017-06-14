@@ -1,3 +1,7 @@
+import Template from './template';
+import morphdom from 'morphdom';
+import util from './util';
+
 /*
  * @description: A view library for creating reactive components with 
  * Template Literals. Appending the Component tag before the template 
@@ -8,10 +12,6 @@
  * Injecting data or dynamic properties are also possible using 
  * ${ - INSERT STRING OR OBJECT - }
 */
-
-import Template from './template';
-import morphdom from 'morphdom';
-import util from './util';
 
 class ComponentLiteral {
 		constructor(controller) {
